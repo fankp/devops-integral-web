@@ -1,0 +1,33 @@
+body {
+  height: 100%;
+  width: 100%;
+  min-width: 1280px;
+  margin: 0 !important;
+  position: absolute;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+.el-dialog {
+  border-radius: 5px;
+  .el-dialog__header {
+    border-bottom: 1px solid #ebeef5
+  }
+  .el-dialog__footer {
+    border-top: 1px solid #ebeef5
+  }
+}
+
+.el-select {
+  width: 100%;
+}
+
+.form-tip {
+  border: 1px solid #EBEEF5;
+  line-height: 40px;
+  padding-left: 5px;
+  background-color: rgb(244, 244, 245);
+}
+
