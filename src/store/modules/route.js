@@ -4,10 +4,16 @@ import {
 import {
   selectPermitMenuWithEntity
 } from '@/views/setting/menu/api'
+import store from '../../store'
 
 function filterRoute(routes, menus) {
   let result = []
+  let existsNames = []
+  let project = store.getters.project
   routes.forEach(each => {
+    if (each.meta && each.meta.projectRequired && !project) {
+      return
+    }
     let route = { ...each }
     let menu = matchRouteMenu(route.path, menus)
     let flag = false
@@ -25,8 +31,19 @@ function filterRoute(routes, menus) {
       let children = filterRoute(route.children, menus)
       route.children = children
     }
-    if (flag || (route.children && route.children.length > 0)) {
-      result.push(route)
+    if (flag) {
+      if (existsNames.indexOf(route.name) === -1) {
+        existsNames.push(route.name)
+        result.push(route)
+      }
+    } else if (route.children && route.children.length > 0) {
+      if (existsNames.indexOf(route.name) === -1) {
+        existsNames.push(route.name)
+        if (route.redirect) {
+          route.redirect = route.children[0].path
+        }
+        result.push(route)
+      }
     }
   })
   return result

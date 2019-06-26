@@ -21,7 +21,7 @@ export default {
     handleLoginSuccess (token) {
       this.$store.dispatch('SaveToken', token).then(() => {
         // 加载动态陆由
-        this.$router.push({ path: '/setting' })
+        this.$router.push({ path: '/project' })
       })
     }
   }

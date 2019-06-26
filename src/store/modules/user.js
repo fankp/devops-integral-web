@@ -5,7 +5,8 @@ import {
 const user = {
   state: {
     token: sessionStorage.token || '',
-    userInfo: ''
+    userInfo: '',
+    project: sessionStorage.project || ''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -14,18 +15,37 @@ const user = {
     SET_USER_INFO: (state, userInfo) => {
       state.userInfo = userInfo
     },
-    SET_CURRENT_PROJECT: (state, project) => {
-      state.current_project = project
+    SET_PROJECT: (state, project) => {
+      state.project = project
     }
   },
   actions: {
     SaveToken ({
       commit
     }, token) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         let tokenJson = JSON.stringify(token)
         commit('SET_TOKEN', tokenJson)
         sessionStorage.setItem('token', tokenJson)
+        resolve()
+      })
+    },
+    SetProject ({
+      commit
+    }, project) {
+      return new Promise((resolve) => {
+        let projectJson = JSON.stringify(project)
+        commit('SET_PROJECT', projectJson)
+        sessionStorage.setItem('project', projectJson)
+        resolve()
+      })
+    },
+    RemoveProject ({
+      commit
+    }) {
+      return new Promise(resolve => {
+        commit('SET_PROJECT', '')
+        sessionStorage.removeItem('project')
         resolve()
       })
     },

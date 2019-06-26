@@ -4,6 +4,7 @@ export function sysUserLogin (username, password, remeberMe) {
   const data = {
     'username': username,
     'password': password,
+    'remeberMe': remeberMe,
     'grant_type': 'password',
     'scope': 'all'
   }

@@ -45,6 +45,11 @@ service.interceptors.response.use(
           showClose: true,
           message: message
         })
+      } else if (status === 503) {
+        Message.error({
+          showClose: true,
+          message: message
+        })
       }
     }
     return Promise.reject(error)

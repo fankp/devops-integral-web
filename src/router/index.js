@@ -4,6 +4,8 @@ import store from '../store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress style
 import Layout from '@/views/layout/index'
+import { Message } from 'element-ui'
+
 Vue.use(Router)
 
 const _import = (file) => () => import(`@/views/${file}`)
@@ -21,6 +23,39 @@ export const constantRouter = [
   
 ]
 export const asyncRouter = [
+  {
+    path: '/project',
+    name: '项目',
+    component: Layout,
+    redirect: '/project/index',
+    children: [
+      {
+        path: '/project/admin/index',
+        name: '项目',
+        component: _import('project_panel/admin/index'),
+        meta: {
+          iconClass: 'el-icon-menu'
+        }
+      },
+      {
+        path: '/project/index',
+        name: '项目',
+        component: _import('project_panel/normal/index'),
+        meta: {
+          iconClass: 'el-icon-menu'
+        }
+      },
+      {
+        path: '/project/dashboard/index',
+        name: '仪表盘',
+        component: _import('project_dashboard/index'),
+        meta: {
+          iconClass: 'el-icon-monitor',
+          projectRequired: true
+        }
+      }
+    ]
+  },
   {
     path: '/setting',
     name: '系统设置',
@@ -79,6 +114,8 @@ const RouterConfig = {
 }
 export const router = new Router(RouterConfig)
 
+const noneProjectPath = ['/project', '/project/index', '/project/admin/index']
+
 // 路由拦截器，用于获取用户信息，页面拦截
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
@@ -89,6 +126,21 @@ router.beforeEach(async(to, from, next) => {
       next()
     })
   } else {
+    let project = store.getters.project
+    // 以除项目面板外/project开头的路由，如果项目信息为空，则跳转到项目选择页面选择项目
+    if (to.path.startsWith('/project')  && noneProjectPath.indexOf(to.path) === -1) {
+      if (!project) {
+        Message.error({
+          message: '请选择项目',
+          showClose: true
+        })
+        next('/project')
+      } 
+    } else if (project) {
+      // 项目面板以及其他非项目内路由，如果项目信息不为空，则删除项目信息，重新加载路由
+      await store.dispatch('RemoveProject')
+      await store.dispatch('RemoveRoute')
+    }
     try {
       // 尝试获取用户信息，拦截未登录请求
       await store.dispatch('GeneratorUserInfo')

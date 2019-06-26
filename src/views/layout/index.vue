@@ -13,6 +13,7 @@
           :default-active="activeTopMenu"
           background-color="rgb(58, 131, 228)"
           text-color="#fff"
+          :router="true"
           active-text-color="#fff">
             <template v-for="(item, index) in topMenus">
               <el-menu-item
@@ -93,6 +94,9 @@ export default {
       activeTopMenu: '',
       activeSideMenu: ''
     }
+  },
+  watch: {
+    '$route':'initMenus'
   },
   computed: {
     ...mapGetters(["permit_routes", "user_info"])
