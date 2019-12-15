@@ -61,8 +61,17 @@ export default {
           // 设置登录按钮加载中，防止重复点击
           this.loging = true
           sysUserLogin(this.sysLoginForm.username, this.sysLoginForm.password, this.sysLoginForm.remeberMe).then(res => {
-            let token = res.data
-            this.$emit('handleLoginSuccess', token)
+            let data = res.data
+            if (data.success) {
+              this.$message.success({
+                message: "登录成功"
+              })
+              this.$emit('handleLoginSuccess', data.data)
+            } else {
+              this.$message.error({
+                message: data.msg
+              })
+            }
             this.loging = false
           }).catch(() => {
             this.sysLoginForm.password = ''

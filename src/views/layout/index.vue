@@ -11,7 +11,7 @@
         <div class="layout_top_menu">
           <el-menu mode="horizontal"
           :default-active="activeTopMenu"
-          background-color="rgb(58, 131, 228)"
+          background-color="r#5380AD"
           text-color="#fff"
           :router="true"
           active-text-color="#fff">
@@ -30,7 +30,7 @@
           <el-dropdown class="user_info">
             <span class="user_name">
               <i class="iconfont icon_user"></i>
-              {{ getUserName() }}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{ getUserInfo().ch_name }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>个人资料</el-dropdown-item>
@@ -99,7 +99,7 @@ export default {
     '$route':'initMenus'
   },
   computed: {
-    ...mapGetters(["permit_routes", "user_info"])
+    ...mapGetters(["permit_routes", "token"])
   },
   methods: {
     handleToggleMenuCollapse () {
@@ -127,10 +127,11 @@ export default {
     handleTopMenuSelect (menu) {
       this.sideMenus = menu.children
     },
-    getUserName() {
-      if (this.user_info) {
-        let userInfo = JSON.parse(this.user_info);
-        return userInfo.userName;
+    getUserInfo() {
+      if (this.token) {
+        let userString = decodeURIComponent(escape(window.atob(this.token.split('.')[1])))
+        console.log(userString)
+        return JSON.parse(userString)
       } else {
         return "";
       }
@@ -158,7 +159,7 @@ export default {
   .layout_top {
     position: fixed;
     width: 100%;
-    background-color: rgb(58, 131, 228);
+    background-color: $top_menu_color;
     height: 60px;
     line-height: 60px;
     font-size: 20px;
