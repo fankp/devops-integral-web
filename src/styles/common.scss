@@ -23,7 +23,9 @@ body {
 .el-select {
   width: 100%;
 }
-
+.el-form-item {
+  margin-bottom: 0;
+}
 .form-tip {
   border: 1px solid #EBEEF5;
   line-height: 40px;

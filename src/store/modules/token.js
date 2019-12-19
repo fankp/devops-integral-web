@@ -17,12 +17,9 @@ const token = {
         resolve()
       })
     },
-    Logout ({
-      commit
-    }) {
-      return new Promise((resolve, reject) => {
+    Logout () {
+      return new Promise((resolve) => {
         sessionStorage.removeItem('token')
-        commit('SET_USER_INFO', '')
         resolve()
       })
     }

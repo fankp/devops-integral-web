@@ -6,8 +6,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 全局过滤器
 import * as filters from './filters'
 // 导入全局样式
-import '@/styles/common.scss'
 import '@/styles/variables.scss'
+import '@/styles/common.scss'
 // 阿里图标库css
 import '@/assets/icon-fonts/iconfont.css'
 // vuex存储数据
@@ -18,7 +18,7 @@ import Pagination from '@/components/Pagination'
 Vue.use(ElementUI)
 // 全局注册公共组件
 Vue.use(SearchPanel)
-Vue.component('search_panel', SearchPanel)
+Vue.component('search-panel', SearchPanel)
 Vue.use(Pagination)
 Vue.component('pagination', Pagination)
 

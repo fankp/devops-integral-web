@@ -21,7 +21,7 @@ export default {
     handleLoginSuccess (token) {
       this.$store.dispatch('SaveToken', token).then(() => {
         // 加载动态陆由
-        this.$router.push({ path: '/project' })
+        this.$router.push({ path: '/projects' })
       })
     }
   }
@@ -36,8 +36,8 @@ export default {
   .login_main {
     position: absolute;
     top: 20%;
-    left: 36%;
-    width: 25%;
+    left: 40%;
+    width: 20%;
     border: #E4E7ED solid 1px;
     background-color: #ffffff;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

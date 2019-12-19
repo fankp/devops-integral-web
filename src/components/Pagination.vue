@@ -47,5 +47,6 @@ export default {
 .pagination {
   margin-top: 10px;
   float: right;
+  margin-bottom: 10px;
 }
 </style>

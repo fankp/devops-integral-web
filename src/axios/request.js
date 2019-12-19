@@ -4,21 +4,21 @@ import {
   Message
 } from 'element-ui'
 
+// 从对应环境参数中获取请求根路径
 export const baseURL = process.env.VUE_APP_BASE_API
 axios.defaults.withCredentials = false
 export const service = axios.create({
   baseURL: baseURL,
-  timeout: 100000
+  // 请求超时时间，单位毫秒
+  timeout: 10000
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    if (sessionStorage.getItem('token') && !config.headers['Authorization']) {
-      let token = JSON.parse(store.getters.token)
-      if (token.value) {
-        config.headers['Authorization'] = 'Bearer ' + token.value
-      }
+    let token = store.getters.token
+    if (token && !config.headers['Authorization']) {
+      config.headers['Authorization'] = token
     }
     return config
   },
@@ -40,16 +40,20 @@ service.interceptors.response.use(
           showClose: true,
           message: message
         })
+        // 服务异常
       } else if (status === 401) {
         Message.error({
           showClose: true,
           message: message
         })
+        // 跳转到登录页面
+        this.$route.push('/')
       } else if (status === 503) {
         Message.error({
           showClose: true,
           message: message
         })
+        // 服务不可用
       }
     }
     return Promise.reject(error)

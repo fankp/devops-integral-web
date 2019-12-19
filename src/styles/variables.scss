@@ -1,11 +1,27 @@
 // 系统中的scss中的变量
-$background_color:#f4f5f7;
-$top_menu_color: #000000;
+$background_color: #F5F7FA;
+$top_menu_color: #272d2d;
 $top_menu_text_color: #fff;
-$top_menu_active_color: #ffd04b;
+$top_menu_active_color: #00FFFF;
+$aside_menu_color: #545c64;
+$aside_menu_text_color: #fff;
+$aside_menu_active_color: #00FFFF;
+$table-header-background-color: #909399;
+$table-font-color: #FFFFFF;
+// 把scss变量导入，可以在Vue中引用
+:export {
+  top_menu_color: $top_menu_color;
+  top_menu_text_color: $top_menu_text_color;
+  top_menu_active_color: $top_menu_active_color;
+  aside_menu_color: $aside_menu_color;
+  aside_menu_text_color: $aside_menu_text_color;
+  aside_menu_active_color: $aside_menu_active_color;
+}
 // element相关变量
 /* 改变主题色变量 */
 $--color-primary: #5380AD;
+$--table-header-background-color: #E4E7ED;
+$--table-header-font-color: #606266;
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
